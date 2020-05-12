@@ -1,0 +1,57 @@
+syntax = "proto3";
+import "category.proto";
+import "reservation.proto";
+
+
+service VehicleService {
+    
+    rpc Insert (Vehicle) returns (Vehicle) {}
+    rpc List (EmptyVehicle) returns (VehicleList) {}
+    rpc Get (VehicleId) returns (VehicleGet){}
+    rpc Update (Vehicle) returns (Vehicle){}
+    rpc Delete (VehicleId) returns (Vehicle){}
+    rpc DeletesVL (VehicleIdWithLocation) returns (Vehicle){}
+}
+message EmptyVehicle {}
+
+message Vehicle {
+   string _id = 1;
+   string MAKE = 2;
+   string MODEL = 3;
+   string CATEGORY = 4;
+   int32 YEAR = 5;
+   string REGISTRATION_TAG = 6;
+   int32 MILEAGE = 7;
+   string LAST_SERVICE_DATE = 8;
+   string VEHICLE_CONDITION = 9;
+   string LOCATION = 10;
+}
+
+
+message VehicleGet {
+   string _id = 1;
+   string MAKE = 2;
+   string MODEL = 3;
+   Category CATEGORY = 4;
+   int32 YEAR = 5;
+   string REGISTRATION_TAG = 6;
+   int32 MILEAGE = 7;
+   string LAST_SERVICE_DATE = 8;
+   string VEHICLE_CONDITION = 9;
+   repeated Reservation RESERVATIONS=10;
+   Location LOCATION = 11;
+
+}
+
+message VehicleList {
+   repeated VehicleGet vehicles = 1;
+}
+
+message VehicleId {
+  string _id = 1;
+}
+
+message VehicleIdWithLocation {
+  string _id = 1;
+  string location_id=2;
+}

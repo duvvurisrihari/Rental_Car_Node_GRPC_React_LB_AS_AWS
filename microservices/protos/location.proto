@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+import "address.proto";
+import "vehicle.proto";
+
+service LocationService {
+    rpc List (EmptyLocation) returns (LocationList) {}
+    rpc Insert (Location) returns (Location) {}
+    rpc Get (LocationId) returns (LocationBase){}
+    rpc Update (Location) returns (Location){}
+    rpc Delete (LocationId) returns (Location){}
+    rpc AddVehicle(AddVehicle) returns (LocationId){}
+    rpc ReassignVehicle(VehicleReassign) returns (LocationId){}
+}
+message EmptyLocation {}
+
+message Location {
+   string _id = 1;   
+   string NAME =2; 
+   Address ADDRESS = 3;
+   int32 CURRENT_CAPACITY = 4;
+   int32 VEHICLE_CAPACITY = 5;
+   //repeated Vehicle VEHICLES=6; 
+  
+}
+
+message LocationBase {
+   string _id = 1;   
+   string NAME =2; 
+   Address ADDRESS = 3;
+   int32 CURRENT_CAPACITY = 4;
+   int32 VEHICLE_CAPACITY = 5;
+   repeated Vehicle VEHICLES = 6;
+}
+
+message LocationList {
+   repeated Location locations = 1;
+}
+
+message LocationId {
+  string _id = 1;
+}
+
+message AddVehicle{
+   string _id=1;
+    string VEHICLE=2;
+}
+
+message VehicleReassign{
+   string _id=1;
+   string current_location=2;
+   string new_location=3;
+}
